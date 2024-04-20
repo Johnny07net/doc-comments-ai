@@ -10,4 +10,5 @@ from doc_comments_ai.treesitter.treesitter_kt import TreesitterKotlin
 from doc_comments_ai.treesitter.treesitter_py import TreesitterPython
 from doc_comments_ai.treesitter.treesitter_rs import TreesitterRust
 from doc_comments_ai.treesitter.treesitter_ts import TreesitterTypescript
+from doc_comments_ai.treesitter.treesitter_tsx import TreesitterTSX
 from doc_comments_ai.treesitter.treesitter_hs import TreesitterHaskell

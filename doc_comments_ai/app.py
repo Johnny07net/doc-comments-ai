@@ -86,20 +86,23 @@ def run():
     else:
         llm_wrapper = llm.LLM(local_model=args.local_model)
 
+    print(f"start open file:{file_name}")
     generated_doc_comments = {}
-
+    
     with open(file_name, "r") as file:
         # Read the entire content of the file into a string
-        file_bytes = file.read().encode()
-
+        file_content = file.read()
+        file_bytes = file_content.encode()
+        print(f'read file:{file_content}')
         file_extension = utils.get_file_extension(file_name)
+        print(f"file_extension:{file_extension}")
         programming_language = utils.get_programming_language(file_extension)
-
+        print(f'programming_language:{programming_language}')
         treesitter_parser = Treesitter.create_treesitter(programming_language)
         treesitterNodes: list[TreesitterMethodNode] = treesitter_parser.parse(
             file_bytes
         )
-
+        print(f'treesitterNodes:{treesitterNodes}')
         for node in treesitterNodes:
             method_name = utils.get_bold_text(node.name)
 

@@ -26,7 +26,7 @@ def get_programming_language(file_extension: str) -> Language:
         ".mjs": Language.JAVASCRIPT,
         ".cjs": Language.JAVASCRIPT,
         ".ts": Language.TYPESCRIPT,
-        ".tsx": Language.TYPESCRIPT,
+        ".tsx": Language.TSX,
         ".java": Language.JAVA,
         ".kt": Language.KOTLIN,
         ".rs": Language.RUST,

@@ -5,6 +5,7 @@ class Language(Enum):
     PYTHON = "python"
     JAVASCRIPT = "javascript"
     TYPESCRIPT = "typescript"
+    TSX = 'tsx'
     JAVA = "java"
     CPP = "cpp"
     C = "c"

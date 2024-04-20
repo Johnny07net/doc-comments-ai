@@ -4,10 +4,10 @@ from doc_comments_ai.treesitter.treesitter_registry import TreesitterRegistry
 
 import tree_sitter
 
-class TreesitterTypescript(Treesitter):
+class TreesitterTSX(Treesitter):
     def __init__(self):
         super().__init__(
-            Language.TYPESCRIPT, "function_declaration", "identifier", "comment"
+            Language.TSX, "function_declaration", "identifier", "comment"
         )
         
     def _query_all_methods(
@@ -15,7 +15,7 @@ class TreesitterTypescript(Treesitter):
         node: tree_sitter.Node,
     ):
         methods = []
-        if node.type in {self.method_declaration_identifier}:
+        if node.type in {self.method_declaration_identifier,"jsx_element"}:
             doc_comment_node = None
             if (
                 node.prev_named_sibling
@@ -29,11 +29,11 @@ class TreesitterTypescript(Treesitter):
         return methods
 
     def _query_method_name(self, node: tree_sitter.Node):
-        if node.type in {self.method_declaration_identifier}:
+        if node.type in {self.method_declaration_identifier,"jsx_element"}:
             for child in node.children:
                 if child.type == self.method_name_identifier:
                     return child.text.decode()
         return None
 
 # Register the TreesitterJava class in the registry
-TreesitterRegistry.register_treesitter(Language.TYPESCRIPT, TreesitterTypescript)
+TreesitterRegistry.register_treesitter(Language.TSX, TreesitterTSX)
