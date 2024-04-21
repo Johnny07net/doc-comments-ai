@@ -9,13 +9,15 @@ class TreesitterTSX(Treesitter):
         super().__init__(
             Language.TSX, "function_declaration", "identifier", "comment"
         )
+        # Extend to cover JSX element types
+        self.jsx_identifiers = {"jsx_element"}
         
     def _query_all_methods(
         self,
         node: tree_sitter.Node,
     ):
         methods = []
-        if node.type in {self.method_declaration_identifier,"jsx_element"}:
+        if node.type in {self.method_declaration_identifier} | self.jsx_identifiers:
             doc_comment_node = None
             if (
                 node.prev_named_sibling
@@ -29,11 +31,13 @@ class TreesitterTSX(Treesitter):
         return methods
 
     def _query_method_name(self, node: tree_sitter.Node):
-        if node.type in {self.method_declaration_identifier,"jsx_element"}:
+        if node.type in {self.method_declaration_identifier} | self.jsx_identifiers:
             for child in node.children:
                 if child.type == self.method_name_identifier:
                     return child.text.decode()
         return None
+    
+
 
 # Register the TreesitterJava class in the registry
 TreesitterRegistry.register_treesitter(Language.TSX, TreesitterTSX)
